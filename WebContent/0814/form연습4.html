@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" href="../css/public.css">
+	
+	
+	<style>
+		table{
+			border-collapse: collapse;
+		}
+		#top_td{
+			text-align: center;
+		}
+		h2{
+			text-align: center;
+		}
+		.box div{
+			border: 1px none white;
+		}
+	</style>
+	
+	
+	
+	<script>
+	
+		window.onload = function(){
+			form = document.selForm;	
+		}
+		
+		
+		
+		function multy(){
+			data = form.mult.value;
+			res = "";
+			for(i=1; i<10; i++){
+				num = data*i;
+				res += data + " * " + i + " = " + num;
+				res += "<br>"
+			}
+			//div.innerHTML = res;
+			document.getElementById('divArea').innerHTML = res;
+		}
+	</script>
+	
+	
+</head>
+<body>
+
+	<div class="box"  id="mainDiv">
+		<div align="center">
+			<form name="selForm">
+				<table>
+				
+				
+				
+					<tr>
+						<td id="top_td">
+							<select name="mult">
+								<option value="1">1단</option>
+								<option value="2">2단</option>
+								<option value="3">3단</option>
+								<option value="4">4단</option>
+								<option value="5">5단</option>
+								<option value="6">6단</option>
+								<option value="7">7단</option>
+								<option value="8">8단</option>
+								<option value="9">9단</option>
+							</select>
+							<input type="button" value="출력" onclick="multy()">
+						</td>
+					</tr>
+					
+					
+					<tr>
+						<td><h2>결과 출력</h2></td>
+					</tr>
+					
+					
+					<tr>
+						<td>
+							<!-- div태그에는 name속성을 기술할수 없다. -->
+							<div id="divArea"></div>
+						</td>
+					</tr>
+					
+					
+				</table>
+		
+			</form>
+		</div>
+		
+	</div>
+</body>
+</html>

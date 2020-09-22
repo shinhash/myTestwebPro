@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/public.css">
+
+<style>
+	div{
+		width: 500px;
+		height: 200px;
+		background: yellow;
+	}
+</style>
+
+<script>
+
+	function calc(){
+		var x = prompt("첫번째 정수를 입력하세요.");
+		var y = prompt("두번째 정수를 입력하세요.");
+		
+		var calc = prompt("연산자 기호를 입력하세요.");
+		
+		
+		var divView = document.getElementById('out');
+		
+		var res=0;
+		
+		// 방법1 (switch-case)
+		switch(calc){
+		case '+':
+			res = parseInt(x) + parseInt(y);
+			break;
+		case '-':
+			res = parseInt(x) - parseInt(y);
+			break;
+		case '*':
+			res = parseInt(x) * parseInt(y);
+			break;
+		case '/':
+			res = parseInt(x) / parseInt(y);
+			break;
+		default:
+			divView.innerHTML = "연산기호가 올바르지 않습니다.";
+			break;
+		}
+		
+		
+		/*
+		// 방법2 (if())
+		if(calc == "+"){
+			res = parseInt(x) + parseInt(y);
+		}else if(calc == "-"){
+			res = parseInt(x) - parseInt(y);
+		}else if(calc == "*"){
+			res = parseInt(x) * parseInt(y);
+		}else if(calc == "/"){
+			res = parseInt(x) / parseInt(y);
+		}else{
+			divView.innerHTML = "연산기호가 올바르지 않습니다.";
+		}
+		*/
+		
+		divView.innerHTML = parseInt(x) + " " + calc + " " + parseInt(y) + " = " + res;
+		
+	}
+	
+	
+	
+</script>
+
+
+</head>
+<body>
+
+<pre>
+	두개의 정수를 prompt로 입력받는다.
+	한개의 연산자를 prompt로 입력받는다.
+	연산자를 비교해서(if/ switch) 연산을 수행한다.
+	연산 수행된 결과값을 div에 출력한다.
+</pre>
+<input type="button" value="연산시작" onclick="calc()">
+
+<div id="out"></div>
+
+
+</body>
+</html>

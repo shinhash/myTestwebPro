@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" href="css/public.css">
+	
+	
+	<style>
+		table{
+			width: 800px;
+			height: 800px;
+			border-collapse: collapse;
+		}
+		td{
+			text-align: center;
+			width: 100px;
+			height: 100px;
+		}
+		#Gamediv{
+			position: absolute;
+ 			top: 15px;          	 
+			left: 9px;  
+			opacity: 1;
+		}
+		#Gamediv td{
+			width: 100px;
+			height: 100px;	
+		}
+		img{
+			width: 100%;
+			height: 80%;
+		}
+	</style>
+	
+	
+	
+	<script>
+	
+		// 초기 설정
+		window.onload = function(){
+			form = document.GameForm;
+						
+			td = form[0].getElementsByTagName('td');
+				
+			// 체스판 View 초기설정
+			var locCount = 0;
+			var line = true;
+			for(i=0; i<td.length; i++){
+			
+				// 홀수번째 라인
+				if(line == true){
+					locCount++;	
+					if(locCount%2 != 1){
+						td[i].style.backgroundColor = "gray";
+					}
+					if(locCount == 8){
+						locCount = 0;
+						line = false;
+					}
+				}
+				
+				// 짝수번째 라인
+				else if(line == false){
+					locCount++;	
+					if(locCount%2 != 0){
+						td[i].style.backgroundColor = "gray";
+					}
+					if(locCount == 8){
+						locCount = 0;
+						line = true;
+					}
+				}
+			}
+			
+			
+			////////////////////////////////   초기 위치배열 setting  ///////////////////////
+			// 전체 체스판 설정
+			panArr = new Array();
+			for(i=0; i<8; i++){
+				panArr[i] = new Array();
+			}
+			
+			
+			// 폰 카운트
+			var  wp_count = 1;
+			var  bp_count = 1;
+			
+			// 룩 카운트
+			var  wr_count = 1;
+			var  br_count = 1;
+			
+			// 나이트 카운트
+			var  wn_count = 1;
+			var  bn_count = 1;
+			
+			// 비숍 카운트
+			var  wb_count = 1;
+			var  bb_count = 1;
+						
+			
+			lineLen = panArr.length;
+			// (백/흑)군 진영
+			for(i=0; i<panArr.length; i++){
+				for(j=0; j<panArr.length; j++){
+					
+					// (백/흑)군 진영 초기설정
+					if((i == 0 && j == 0) || (i == 0 && j == lineLen-1)){
+						panArr[i][j] = "W_Rook" + wr_count;
+						wr_count++;
+						continue;
+					}
+					if((i == lineLen-1 && j == 0) || (i == lineLen-1 && j == lineLen-1)){
+						panArr[i][j] = "B_Rook" + br_count;
+						br_count++;
+						continue;
+					}
+					
+					
+					
+					if((i == 0 && j == 1) || (i == 0 && j == lineLen-2)){
+						panArr[i][j] = "W_Bishop" + wb_count;
+						wb_count++;
+						continue;
+					}
+					if((i == lineLen-1 && j == 1) || (i == lineLen-1 && j == lineLen-2)){
+						panArr[i][j] = "B_Bishop" + bb_count;
+						bb_count++;
+						continue;
+					}
+					
+					
+					
+					if((i == 0 && j == 2) || (i == 0 && j == lineLen-3)){
+						panArr[i][j] = "W_Knight" + wn_count;
+						wn_count++;
+						continue;
+					}
+					if((i == lineLen-1 && j == 2) || (i == lineLen-1 && j == lineLen-3)){
+						panArr[i][j] = "B_Knight" + bn_count;
+						bn_count++;
+						continue;
+					}
+					
+					
+					
+					if((i == 0 && j == 3)){
+						panArr[i][j] = "W_King";
+						continue;
+					}
+					if((i == lineLen-1 && j == lineLen-4)){
+						panArr[i][j] = "B_King";
+						continue;
+					}
+					
+					
+					
+					if((i == 0 && j == lineLen-4)){
+						panArr[i][j] = "W_Queen";
+						continue;
+					}
+					if((i == lineLen-1 && j == 3)){
+						panArr[i][j] = "B_Queen";
+						continue;
+					}
+					
+					
+					
+					if(i == 1){
+						panArr[i][j] = "W_Pawn" + wp_count;
+						wp_count++;
+						continue;
+					}
+					if(i == lineLen-2){
+						panArr[i][j] = "B_Pawn" + bp_count;
+						bp_count++;
+						continue;
+					}
+					
+					if(1 < i || i < 6){
+						panArr[i][j] = "empty";
+						continue;
+					}
+					
+				}
+			}
+			
+			
+			
+			
+			////////////////////////////////   이미지 setting  ///////////////////////
+			var Count = 0;
+			
+			// 폰 카운트
+			var  wp_count = 1;
+			var  bp_count = 1;
+			
+			// 룩 카운트
+			var  wr_count = 1;
+			var  br_count = 1;
+			
+			// 나이트 카운트
+			var  wn_count = 1;
+			var  bn_count = 1;
+			
+			// 비숍 카운트
+			var  wb_count = 1;
+			var  bb_count = 1;
+
+			
+			ViewTd = form[1].getElementsByTagName('td');
+			for(i=0; i<panArr.length; i++){
+				for(j=0; j<panArr.length; j++){
+										
+					/////////////////////////////// (백/흑)군 진영 초기설정
+					
+					
+					// 룩
+					if(panArr[i][j] == "W_Rook" + wr_count){
+						img = document.createElement('img');
+						img.src = "images/white_rook.png";
+						img.alt = "W_Rook" + wr_count;
+						form[1].getElementsByTagName('td')[Count].appendChild(img);
+						wr_count++;
+					}
+					if(panArr[i][j] == "B_Rook" + br_count){
+						img = document.createElement('img');
+						img.src = "images/black_rook.png";
+						img.alt = "B_Rook" + br_count;
+						form[1].getElementsByTagName('td')[Count].appendChild(img);
+						br_count++;
+					}
+					
+					
+					
+					
+					
+					// 비숍
+					if(panArr[i][j] == "W_Bishop" + wb_count){
+						img = document.createElement('img');
+						img.src = "images/white_bishop.png";
+						img.alt = "W_Bishop" + wb_count;
+						form[1].getElementsByTagName('td')[Count].appendChild(img);
+						wb_count++;
+					}
+					if(panArr[i][j] == "B_Bishop" + bb_count){
+						img = document.createElement('img');
+						img.src = "images/black_bishop.png";
+						img.alt = "B_Bishop" + bb_count;
+						form[1].getElementsByTagName('td')[Count].appendChild(img);
+						bb_count++;
+					}
+					
+					
+					
+					
+					// 나이트
+					if(panArr[i][j] == "W_Knight" + wn_count){
+						img = document.createElement('img');
+						img.src = "images/white_knight.png";
+						img.alt = "W_Knight" + wn_count;
+						form[1].getElementsByTagName('td')[Count].appendChild(img);
+						wn_count++;
+					}
+					if(panArr[i][j] == "B_Knight" + bn_count){
+						img = document.createElement('img');
+						img.src = "images/black_knight.png";
+						img.alt = "B_Knight" + bn_count;
+						form[1].getElementsByTagName('td')[Count].appendChild(img);
+						bn_count++;
+					}
+					
+					
+					
+					
+					// 킹
+					if(panArr[i][j] == "W_King"){
+						img = document.createElement('img');
+						img.src = "images/white_king.png";
+						img.alt = "W_King";
+						form[1].getElementsByTagName('td')[Count].appendChild(img);
+					}
+					if(panArr[i][j] == "B_King"){
+						img = document.createElement('img');
+						img.src = "images/black_king.png";
+						img.alt = "B_King";
+						form[1].getElementsByTagName('td')[Count].appendChild(img);
+					}
+					
+					
+					
+					
+					
+					
+					// 퀸
+					if(panArr[i][j] == "W_Queen"){
+						img = document.createElement('img');
+						img.src = "images/white_queen.png";
+						img.alt = "W_Queen";
+						form[1].getElementsByTagName('td')[Count].appendChild(img);
+					}
+					if(panArr[i][j] == "B_Queen"){
+						img = document.createElement('img');
+						img.src = "images/black_queen.png";
+						img.alt = "B_Queen";
+						form[1].getElementsByTagName('td')[Count].appendChild(img);
+					}
+					
+					
+					
+					
+					// 폰
+					if(panArr[i][j] == "W_Pawn" + wp_count){
+						img = document.createElement('img');
+						img.src = "images/white_pawn.png";
+						img.alt = "W_Pawn" + wp_count;
+						form[1].getElementsByTagName('td')[Count].appendChild(img);
+						wp_count++;
+					}
+					if(panArr[i][j] == "B_Pawn" + bp_count){
+						img = document.createElement('img');
+						img.src = "images/black_pawn.png";
+						img.alt = "B_Pawn" + bp_count;
+						form[1].getElementsByTagName('td')[Count].appendChild(img);
+						bp_count++;
+					}
+					
+					
+					
+					
+					// 빈공간
+					if(panArr[i][j] == "empty"){
+						img = document.createElement('img');
+						img.src = "images/empty_area.png";
+						img.alt = "empty";
+						form[1].getElementsByTagName('td')[Count].appendChild(img);
+					}
+					Count++;
+				}
+			}
+		}
+		
+		var pieces = null;
+		var m_pieces = null;
+		var before_loc = null;
+		var eat_pieces = false;
+		
+		// 말을 클릭할 시 
+		function move(cur_location){
+			
+			pieces = form[1].getElementsByTagName('td')[cur_location].getElementsByTagName('img')[0].alt;
+			
+			
+			
+			if(pieces.substring(0, 3) != "emp" && eat_pieces == false){
+				
+				let cnt = 0;
+				for(i=0; i<panArr.length; i++){
+					for(j=0; j<panArr.length; j++){
+						if(cnt == cur_location){
+							m_pieces = pieces;
+							before_loc = cur_location;
+							
+							// eat_pieces 
+							// => true: 이미 말을 클릭했을 경우, false: 아직 말을 클릭 하지 않았을 경우
+							if(eat_pieces == false){
+								eat_pieces = true;
+								
+							}else{
+								eat_pieces = false;
+							}
+							return;
+						}
+						cnt++;
+					}
+				}
+			}
+			
+			// 다른유저의 말을 잡을때 위치변경
+			if((pieces.substring(0, 3) != "emp" && m_pieces.substring(0, 3) != "emp") && eat_pieces == true){
+				
+				//m_pieces = null;
+				
+				
+				// eat_pieces 
+				// => true: 이미 말을 클릭했을 경우, false: 아직 말을 클릭 하지 않았을 경우
+				//alert(pieces + " : " + m_pieces);
+				
+				
+				if(pieces.substring(0, 1) != m_pieces.substring(0, 1)){
+					movePieces(before_loc, m_pieces, cur_location);
+					
+				}else{
+					alert("아군 말입니다.!!!")
+				}
+				
+				if(eat_pieces == false){
+					eat_pieces = true;
+					
+				}else{
+					eat_pieces = false;
+				}
+				return;
+			}
+			
+			
+			// 말의 기본위치 변경
+			if(pieces.substring(0, 3) == "emp" && m_pieces != null){
+				
+				//alert(pieces + " : " + m_pieces);
+				// 말의 (말의 전 위치, 움직이려는 말의 정보, 말의 다음위치)
+				movePieces(before_loc, m_pieces, cur_location);
+				
+				
+				
+				if(eat_pieces == false){
+					eat_pieces = true;
+					
+				}else{
+					eat_pieces = false;
+				}
+				
+				
+				before_loc = null;
+				m_pieces = null;
+				cur_location = null;
+				pieces = null;
+				return;
+			}
+			
+			
+			
+			
+			
+		}
+		
+		
+		
+		
+		//                말의 (말의 전 위치, 움직이려는 말의 정보, 말의 다음위치)
+		function movePieces(before_loc, m_pieces, cur_location){
+			
+			// 기존 위치의 이미지 빈공간 이미지로 재생성
+			img = form[1].getElementsByTagName('td')[before_loc].getElementsByTagName('img')[0];
+			resetImg(img);
+			
+			
+			// 입력받은 위치의 이미지를 옮기려는 말의 이미지로 재생성
+			loc = locSetting(cur_location, m_pieces);
+			name = getPiecesName(m_pieces);
+			link = "images/" + name + ".png";
+			form[1].getElementsByTagName('td')[loc].getElementsByTagName('img')[0].src = link;
+			form[1].getElementsByTagName('td')[loc].getElementsByTagName('img')[0].alt = m_pieces;
+		}
+		
+		
+		
+		// 입력받은 위치좌표를 변수값으로 변환하여 반환
+		function locSetting(cur_location, m_pieces){
+			
+			
+			
+			
+			//x = inputLoc.substring(0, 1);
+			//y = inputLoc.substring(1);
+			
+			//if(x == "A") x = 0;
+			//if(x == "B") x = 1;
+			//if(x == "C") x = 2;
+			//if(x == "D") x = 3;
+			//if(x == "E") x = 4;
+			//if(x == "F") x = 5;
+			//if(x == "G") x = 6;
+			//if(x == "H") x = 7;
+			
+			
+			var loc = 0;
+			for(i=0; i<panArr.length; i++){
+				for(j=0; j<panArr.length; j++){
+					if(loc == cur_location){
+						panArr[i][j] = m_pieces;
+						//alert(i + " , " + j + " : " + pieces);
+						return loc;
+					}
+					loc++;
+				}
+			}
+		}
+		
+		
+		
+		
+		
+		// 말의 alt정보를 받아와서 해당 이미지의 소스이름 반환
+		function getPiecesName(m_pieces){
+			
+			name = m_pieces.substring(0, 4);
+			
+			if(name == "W_Ro") name = "white_rook";
+			if(name == "B_Ro") name = "black_rook";
+			
+			if(name == "W_Bi") name = "white_bishop";
+			if(name == "B_Bi") name = "black_bishop";
+			
+			if(name == "W_Kn") name = "white_knight";
+			if(name == "B_Kn") name = "black_knight";
+			
+			if(name == "W_Ki") name = "white_king";
+			if(name == "B_Ki") name = "black_king";
+			
+			if(name == "W_Qu") name = "white_queen";
+			if(name == "B_Qu") name = "black_queen";
+			
+			if(name == "W_Pa") name = "white_pawn";
+			if(name == "B_Pa") name = "black_pawn";
+			
+			return name;
+		}
+		
+		
+		
+		
+		
+		// 기존 위치의 이미지 빈공간 이미지로 재생성
+		function resetImg(img){
+			img.setAttribute('src', 'images/empty_area.png');
+			img.setAttribute('alt', 'empty');
+		}
+		
+	</script>
+</head>
+<body>
+
+
+
+
+
+	<div id="Playdiv">
+		<form name="GameForm">
+			<table border="1">
+			
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				
+				
+				
+				
+				
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				
+				
+				
+				
+				
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				
+				
+				
+				
+				
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				
+				</tr>
+				
+				
+				
+				
+				
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				
+				
+				
+				
+				
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				
+				</tr>
+				
+				
+				
+				
+				
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				
+				
+				
+				
+				
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				
+			</table>
+		</form>
+	</div>
+		
+		
+	
+	
+	<div id="Gamediv">
+		<form name="GameForm" id="GameForm">
+			<table>
+			
+				<tr>
+					<td id="0" onclick="move(this.id)"></td>
+					<td id="1" onclick="move(this.id)"></td>
+					<td id="2" onclick="move(this.id)"></td>
+					<td id="3" onclick="move(this.id)"></td>
+					<td id="4" onclick="move(this.id)"></td>
+					<td id="5" onclick="move(this.id)"></td>
+					<td id="6" onclick="move(this.id)"></td>
+					<td id="7" onclick="move(this.id)"></td>
+				</tr>
+				
+				
+				
+				
+				
+				<tr>
+					<td id="8" onclick="move(this.id)"></td>
+					<td id="9" onclick="move(this.id)"></td>
+					<td id="10" onclick="move(this.id)"></td>
+					<td id="11" onclick="move(this.id)"></td>
+					<td id="12" onclick="move(this.id)"></td>
+					<td id="13" onclick="move(this.id)"></td>
+					<td id="14" onclick="move(this.id)"></td>
+					<td id="15" onclick="move(this.id)"></td>
+				</tr>
+				
+				
+				
+				
+				
+				<tr>
+					<td id="16" onclick="move(this.id)"></td>
+					<td id="17" onclick="move(this.id)"></td>
+					<td id="18" onclick="move(this.id)"></td>
+					<td id="19" onclick="move(this.id)"></td>
+					<td id="20" onclick="move(this.id)"></td>
+					<td id="21" onclick="move(this.id)"></td>
+					<td id="22" onclick="move(this.id)"></td>
+					<td id="23" onclick="move(this.id)"></td>
+				</tr>
+				
+				
+				
+				
+				
+				<tr>
+					<td id="24" onclick="move(this.id)"></td>
+					<td id="25" onclick="move(this.id)"></td>
+					<td id="26" onclick="move(this.id)"></td>
+					<td id="27" onclick="move(this.id)"></td>
+					<td id="28" onclick="move(this.id)"></td>
+					<td id="29" onclick="move(this.id)"></td>
+					<td id="30" onclick="move(this.id)"></td>
+					<td id="31" onclick="move(this.id)"></td>
+				
+				</tr>
+				
+				
+				
+				
+				
+				<tr>
+					<td id="32" onclick="move(this.id)"></td>
+					<td id="33" onclick="move(this.id)"></td>
+					<td id="34" onclick="move(this.id)"></td>
+					<td id="35" onclick="move(this.id)"></td>
+					<td id="36" onclick="move(this.id)"></td>
+					<td id="37" onclick="move(this.id)"></td>
+					<td id="38" onclick="move(this.id)"></td>
+					<td id="39" onclick="move(this.id)"></td>
+				</tr>
+				
+				
+				
+				
+				
+				<tr>
+					<td id="40" onclick="move(this.id)"></td>
+					<td id="41" onclick="move(this.id)"></td>
+					<td id="42" onclick="move(this.id)"></td>
+					<td id="43" onclick="move(this.id)"></td>
+					<td id="44" onclick="move(this.id)"></td>
+					<td id="45" onclick="move(this.id)"></td>
+					<td id="46" onclick="move(this.id)"></td>
+					<td id="47" onclick="move(this.id)"></td>
+				
+				</tr>
+				
+				
+				
+				
+				
+				<tr>
+					<td id="48" onclick="move(this.id)"></td>
+					<td id="49" onclick="move(this.id)"></td>
+					<td id="50" onclick="move(this.id)"></td>
+					<td id="51" onclick="move(this.id)"></td>
+					<td id="52" onclick="move(this.id)"></td>
+					<td id="53" onclick="move(this.id)"></td>
+					<td id="54" onclick="move(this.id)"></td>
+					<td id="55" onclick="move(this.id)"></td>
+				</tr>
+				
+				
+				
+				
+				
+				<tr>
+					<td id="56" onclick="move(this.id)"></td>
+					<td id="57" onclick="move(this.id)"></td>
+					<td id="58" onclick="move(this.id)"></td>
+					<td id="59" onclick="move(this.id)"></td>
+					<td id="60" onclick="move(this.id)"></td>
+					<td id="61" onclick="move(this.id)"></td>
+					<td id="62" onclick="move(this.id)"></td>
+					<td id="63" onclick="move(this.id)"></td>
+				</tr>
+				
+			</table>
+		</form>
+	</div>
+	
+	
+	
+	
+	
+	<br><br>
+	<div id="moveSetView"><p>TestShow</p></div>
+	
+	
+</body>
+</html>

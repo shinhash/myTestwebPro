@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style>
+			#sendimg{
+				width: 50px;
+				height: 50px;
+			}
+		</style>
+	</head>
+	<body>
+		<form action="input.jsp" method="post">
+			<input type="hidden" value="korea" name="id"><br>
+			이름 : <input type="text" name="name"><br>
+			전화번호 : <input type="text" name="tel"><br>
+			성별 : <input type="radio" value="남자" name="gender">남자
+				 <input type="radio" value="여자" name="gender">여자<br>
+			좋아하는 과일 : <input type="checkbox" value="사과" name="fruits">사과
+					   <input type="checkbox" value="복숭아" name="fruits">복숭아
+					   <input type="checkbox" value="수박" name="fruits">수박
+					   <input type="checkbox" value="청포도" name="fruits">청포도
+			 		   <input type="checkbox" value="귤" name="fruits">귤<br>
+			첨부파일 : <input type="file" name="file">
+			<br>
+			- 전송 수행 : input type=image, input type=submit<br>
+			- 일반 버튼 : input type=button
+			<br>
+			<input type="image" src="../images/bonobono.jpg" id="sendimg">
+			<input type="reset" value="취소">
+			<input type="submit" value="전송">
+			<input type="button" value="확인" onclick="alert('Hellllll ~ 로 ~~~')">
+			<br>
+			
+			- 전송 수행 : button type=submit, button<br>
+			- 일반 버튼 : button type=button<br>
+			<button type="button" onclick="alert('Hell 로~~')">확인</button>
+			<button type="submit">전송</button>
+			<button type="reset">취소</button>
+		</form>
+	</body>
+</html>

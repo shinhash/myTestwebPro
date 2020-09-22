@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<style>
+			a:link{
+				color: blue;
+				text-decoration: none;
+			}
+			a:visited{
+				color: green;
+			}
+			a:hover{
+				background: yellow;
+				font-size: 1.2em;
+				text-decoration: overline;
+			}
+			a:active{
+				color: magenta;
+				text-decoration: line-through;
+			}
+			table{
+				margin-top: 30px;
+			}
+			td{
+				width: 200px;
+				height: 40px;
+				text-align: center;
+				
+			}
+			
+			#tab1 td:nth-child(1){
+				background: gray;
+			}
+			
+			
+			#tab1 td:nth-child(2n){
+				background: lightgray;				
+			}
+			
+			
+			#tab2 tr:nth-child(2n) {
+				background: yellow;
+			}
+			#tab2 tr:nth-child(2n+1) {
+				/*background: lime;*/
+				/*background: rgba(255, 100, 192, 0.3);*/
+				background: rgba(56%, 86%, 79%);
+			}
+			
+			
+			
+		</style>
+		
+		<link rel="stylesheet" href="../css/public.css" type="text/css">
+		
+		
+		<script type="text/javascript">
+		
+			function changeColor(){
+				
+				// 배경색 변경, 누를때마다 변경
+				// tab1의 td에 접근 및 적용한다.
+				td1 = document.querySelectorAll('.td1');
+				
+				// 자바 스크립트에서는 타입을 작성하지 않는다.
+				for(i=0; i<td1.length; i++){
+					
+					
+					// 자바 스크립트에서는 타입을 작성하지 않는다.
+					// 그래서 원래는 Integer.parseInt()라는 메서드를 Integer를 제외한
+					// parseInt()로 작성한다.
+					r = parseInt(Math.random()*256);
+					g = parseInt(Math.random()*256);
+					b = parseInt(Math.random()*256);
+					
+					//td1[i].style.backgroundColor = 'rgb(' + r + ', ' + g + ', ' + b + ')';
+					
+					r16 = r.toString(16);
+					g16 = g.toString(16);
+					b16 = b.toString(16);
+					
+					td1[i].style.backgroundColor = '#'+r16+g16+b16;
+				}
+			}
+		</script>
+		
+		
+	</head>
+	
+	<body>
+<pre>
+작성팁
+의사 클래스(pseudo-class, 가상클래스):  
+클래스가 정의된 것처럼 간주. 
+상태나 구조에 의해서 선택이 이루어진다 
+
+상태
+	a:link		처음상태
+	a:visited	한번 방문한 상태
+	a:hover		마우스가 올려져 있는 상태
+	a:active	마우스를 down 하는 상태
+
+
+
+
+	a:link { color: blue; } 처음
+	a:visited { color: green; } 방문한 적이 있다
+	a:hover { color: red; } 마우스 올려 놨을때
+	a:active {color : pink; } 마우스 down 상태
+
+
+
+
+	td:nth-child(2n)	-> 0 2 4 6 8 
+	td:nth-child(2n+1)	-> 1 3 5 7 9
+	td:nth-child(2n+2)	-> 2 4 6 8 
+</pre>
+		
+
+		<a href="http://www.naver.com">네이버</a>
+		<a href="http://www.daum.net">다음</a>
+		<a href="../아메리카노.html">아메리카노</a>
+		
+		<br><br><br><br>
+		
+		<h3>tab1에서 첫번째 td를 선택<br>
+		짝수번째 td를 선택</h3>
+
+		
+		버튼을 클릭하면 #tab1애서 첫번째 td의 배경색을 변경<br>
+		<input type="button" value="확인" onclick="changeColor()">
+
+		<table border="1" id="tab1">
+			<tr>
+				<td class="td1">1</td>
+				<td>2</td>
+				<td>3</td>
+				<td>4</td>
+			</tr>
+			
+			<tr>
+				<td class="td1">1</td>
+				<td>2</td>
+				<td>3</td>
+				<td>4</td>
+			</tr>
+			
+			<tr>
+				<td class="td1">1</td>
+				<td>2</td>
+				<td>3</td>
+				<td>4</td>
+			</tr>
+		</table><br><br>
+		
+		
+		<h3>tab2에서 짝수번째 tr을 선택</h3>
+		<table border="1" id="tab2">
+			<tr>
+				<td>1</td>
+				<td>2</td>
+				<td>3</td>
+				<td>4</td>
+			</tr>
+			
+			<tr>
+				<td>1</td>
+				<td>2</td>
+				<td>3</td>
+				<td>4</td>
+			</tr>
+			
+			<tr>
+				<td>1</td>
+				<td>2</td>
+				<td>3</td>
+				<td>4</td>
+			</tr>
+
+			<tr>
+				<td>1</td>
+				<td>2</td>
+				<td>3</td>
+				<td>4</td>
+			</tr>
+		</table>
+
+		
+	</body>
+</html>

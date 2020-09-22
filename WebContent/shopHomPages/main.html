@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Tech choong shop</title>
+	<link rel="stylesheet" href="../css/public.css">
+	
+	
+	<style>
+	
+		body,html{
+			width: 100%;
+			height: 100%;
+			min-width: 1500px;
+		}
+		
+		.layer{
+			margin: 3px;
+			border-radius: 20px;
+		}
+	
+		header{
+			padding-left: 10px; 
+			background-color: #35637C;
+			height: 50px;
+			text-align: center;
+		}
+	
+		nav{
+			padding-top: 1px;
+			background-color: #13264E;
+			height: 7%;
+			text-align: center;
+		}
+		nav li{
+			padding-right: 100px;
+			display: inline;
+			font-weight: bold;
+		}
+		nav li a{
+			color: white;
+			text-decoration: none;
+		}
+		
+		
+	
+		aside#left{
+			background-color: #00498C;
+			width: calc(12% - 1%);
+			height: 80%;
+			float: left;
+			padding: 10px;
+		}
+		aside#left a{
+			color: white;
+			text-decoration: none;
+			font-weight: bold;
+			font-size: 20px;
+		}
+		
+		aside table{
+			width: 100%;
+			height: 60%;
+			text-align: center;
+			margin: 1px solid blue;
+		}
+		
+		
+		section{
+			/*background-color: magenta;*/
+			width: calc(66% - 1%);
+			height: 80%;
+			float: left;
+			padding: 10px;
+		}
+		
+		section #article1{
+			/*background-color: yellow;*/
+			float: left;
+			width: 100%;
+			height: 100%;
+			padding: 1px;
+		}
+		section iframe{
+			width: 99%;
+			height: 99%;
+			background-color: white;
+		}
+		
+		aside#right{
+			background-color: #00498C;
+			width: calc(19% - 1%);
+			height: 82%;		
+			float: right;
+			padding-left: 10px;	
+		}
+		
+		#IDPWform p{
+			font-size: 12px;
+		}
+		#IDPWform #inputID{
+			width: 50%;
+		}
+		#IDPWform #inputPW{
+			width: 50%;
+		}
+		
+		
+		footer{
+			background-color: #13264E;
+			width: 100%;
+			height: 5%;	
+			clear: both;
+			color: white;
+			text-align: center;
+		}
+	</style>
+	
+	
+</head>
+
+
+<body>
+
+
+
+
+
+	<header class="layer">
+		<h1>Tech choong Shop</h1>
+	</header>
+	
+	
+	
+	
+	
+	<nav class="layer">
+		<ul>
+			<li><a href="">HOME</a></li>
+			<li><a href="">ABOUT</a></li>
+			<li><a href="">NEWS</a></li>
+			<li><a href="">MY ACCOUNT</a></li>
+			<li><a href="">CONTACT</a></li>
+		</ul>
+	</nav>
+	
+	
+	
+	
+	<!-- 해당 위치의 카테고리는 테이블로 재작성 -->
+	<aside id="left" class="layer">
+		<h3>카테고리</h3>
+		
+		<table>
+			<tr>
+				<td><a href="category-computer.html" target="ifr">컴퓨터</a></td><br>
+			</tr>
+			
+			
+			<tr>
+				<td><a href="category-cloths.html" target="ifr">의류</a></td>
+			</tr>
+			
+			
+			<tr>
+				<td><a href="category-music.html" target="ifr">음악</a></td>
+			</tr>
+			
+			
+			<tr>
+				<td><a href="category-movie.html" target="ifr">영화</a></td>
+			</tr>
+			
+			
+			<tr>
+				<td><a href="category-sports.html" target="ifr">스포츠/레저</a></td>
+			</tr>
+			
+			
+			<tr>
+				<td><a href="category-가구.html" target="ifr">가구/인테리어</a></td>
+			</tr>
+			
+			<tr>
+				<td><a href="category-식품.html" target="ifr">식품</a></td>
+			</tr>
+			
+		</table>
+	</aside>
+	
+	
+	
+	
+	
+	<section class="layer">
+	
+		<article id="article1">
+			<iframe src="category-computer.html" name="ifr"></iframe>
+		</article>
+		
+		
+	</section>
+	
+	
+	
+	
+	
+	<aside id="right" class="layer">
+		<h3>Shopping Cart</h3>
+		<p id="shoppingShow">현재 쇼핑카트에 물품이 없습니다.</p>
+		<a href="shopping-cart.html" target="ifr">쇼핑카트 보기</a>
+		<div>
+			<h3>Log In</h3>
+			<form id="IDPWform" method="post">
+				<p>아이디</p> <input type="text" id="inputID">
+				<p>비밀번호</p> <input type="password" id="inputPW">
+				<br><br>
+				<input type="submit" value="로그인" onclick="">
+				<input type="reset" value="초기화">
+				<br>
+				<a id="signIn" href="signIn.html" target="ifr">회원가입</a>
+				<a id="passlost" href="category-computer.html" target="ifr">비밀번호 분실</a>
+			</form>
+		</div>
+	</aside>
+	
+	
+	
+	
+	
+	<footer class="layer">
+		Copyright (c) 2020 Tech choong shop
+	</footer>
+	
+	
+	
+	
+	
+	
+</body>
+</html>

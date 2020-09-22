@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/public.css">
+
+
+
+<style>
+	div{
+		width: 500px;
+		height: 200px;
+		background: skyblue;
+	}
+</style>
+
+
+<script>
+	function getScore(){
+		
+		var x = prompt("정수 입력", "0~100사이");
+		
+		/*
+		if(x >= 90) str="A";
+		else if(x >= 80) str="B";
+		else if(x >= 70) str="C";
+		else if(x >= 60) str="D";
+		else str="F";
+		*/
+		
+		
+		
+		var str="";
+		switch(parseInt(x/10)){
+		case 10: case 9:
+			str="A";
+			break;
+		case 8:
+			str="B";
+			break;
+		case 7:
+			str="C";
+			break;
+		case 6:
+			str="D";
+			break;
+		default:
+			str="F";
+			break;
+		}
+		
+		
+		
+		
+		var res = "점수 : " + x + "<br>";
+		res += "학점 : " + str + "학점입니다.";
+		
+		
+		var divView = document.getElementsByTagName('div')[0];
+		
+		divView.innerHTML = res;
+		
+	}
+</script>
+
+
+
+</head>
+<body>
+
+<pre>
+확인버튼을 클릭하면 0~100사이의 정수를 입력
+학점을 구해서 div에 출력
+점수가 90~100이면 'A'
+점수가 80~89이면 'B'
+점수가 70~79이면 'C'
+점수가 60~69이면 'D'
+점수가 0~59이면 'F'
+</pre>
+
+
+<input type="button" value="학점 구하기" onclick="getScore()"><br>
+
+<div></div>
+
+</body>
+</html>

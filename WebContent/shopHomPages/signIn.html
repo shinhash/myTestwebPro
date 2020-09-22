@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+<meta charset="utf-8" />
+<title>회원가입</title>
+<style>
+	form{
+		width: 500px;
+		margin: 10px;
+	}
+	
+	.singIn_button{
+		width: 150px;
+	}
+	
+	fieldset{
+		margin-bottom: 10px;
+	}
+</style>
+</head>
+
+
+
+<body>
+
+	<form action="" method="post">
+		<fieldset>
+			<legend>회원정보입력</legend>
+				<table>
+				
+					<tr>
+						<td>아이디</td> <td><input type="text" class="inputline" name="id"> 
+						<input type="button" value="중복검사" onclick="idcheck()"><td>
+					</tr>
+					
+					
+					<tr>
+						<td>패스워드</td> <td><input type="password" class="inputline" name="password"></td>
+					</tr>
+					
+					
+					<tr>
+						<td>패스워드 확인&nbsp;&nbsp;&nbsp;</td> <td><input type="password" class="inputline" name="passwordCheck"></td>
+					</tr>
+					
+					
+					<tr>
+						<td>이름</td> <td><input type="text" class="inputline" name="name"></td>
+					</tr>
+					
+					<tr>
+						<td>휴대폰 번호</td> <td><input type="tel" class="inputline" name="tel"></td>
+					</tr>
+					
+					
+					<tr>
+						<td>이메일</td> <td><input type="email" class="inputline" name="email"></td>
+					</tr>
+					
+					
+					<tr>
+						<td>생일</td> <td><input type="date" class="inputline" name="birth"></td>
+					</tr>
+					
+					
+					<tr>
+						<td>홈페이지</td> <td><input type="text" class="inputline" name="homepage"></td>
+					</tr>
+					
+					
+					<tr>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="male"></td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;남성</td>
+					</tr>
+					
+					
+					<tr>
+						<td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="gender" value="female"></td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;여성</td>
+					</tr>
+					
+				</table>
+			
+		</fieldset>
+		<input type="submit" value="제출" class="singIn_button">
+		<input type="reset" value="초기화" class="singIn_button"><br>
+	</form>
+	
+</body>
+</html>

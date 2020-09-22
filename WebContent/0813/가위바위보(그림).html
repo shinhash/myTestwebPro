@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" href="../css/public.css">
+	
+	<style>
+		td{
+			width: 200px;
+			height: 40px;
+			text-align: center;
+		}
+		#userTitle{
+			background: yellow;
+		}
+		#comTitle{
+			background: red;
+		}
+		.imgtd{
+			height: 200px;
+		}
+		img{
+			width: 100%;
+			height: 200px;
+		}
+		
+		table{
+			border-collapse: collapse;
+			width: 100%;
+			height: 100%;
+		}
+	</style>
+	
+	
+	
+	
+	
+	<script>
+		comImgArr = ["가위", "바위", "보"];
+	
+	
+	
+		function gameStart(){
+			
+			rand = Math.floor(Math.random()*comImgArr.length);
+			
+			// 컴퓨터와 유저의 초기 이미지 경로 setting
+			cImg = "../images/";
+			uImg = "../images/";
+			
+			
+			
+			//////////// 이미지 설정 라인 ////////////////
+			// 사용자로 부터 입력받은 뒤 사용자측 이미지 설정
+			userInput = prompt("게임 시작", "[가위, 바위, 보 ]중에 하나를 입력해주세요.");
+			uImg += userInput + "_좌.png";
+			
+			// 컴퓨터측 이미지 설정
+			com = comImgArr[rand];
+			cImg += com + "_우.png";
+			
+			
+			
+			
+			
+			/////////// 결과 도출 라인 /////////////////
+			res = "결과 : ";
+			if(userInput == "[가위, 바위, 보 ]중에 하나를 입력해주세요." 
+					|| userInput == null 
+					|| userInput == ""){
+				res += "부전패!!";
+				uImg = "../images/도망.png"
+			}else{
+				if(comImgArr[rand] == userInput){
+					res += "비겼습니다."
+				}else if(userInput == "가위" && com == "보" 
+						|| userInput == "바위" && com == "가위" 
+						|| userInput == "보" && com == "바위"){
+					res += "이겼습니다.";
+				}else{
+					res += "졌습니다."
+				}
+			}
+			
+			
+			
+			
+			
+			//////////////// 이미지와 결과 출력 라인 ////////////
+			document.getElementById('user').src = uImg;
+			document.getElementById('com').src = cImg;
+			
+			document.getElementById('gameResult').innerHTML = res;
+			
+			
+		}
+	</script>
+	
+	
+	
+</head>
+<body>
+
+	<div class="box">
+		<h3>1. 가위바위보 </h3>
+		컴퓨터는 랜덤으로 결정
+		사용자는 입력
+		가위바위보에 해당되는 이미지를 변경한다.
+		<br>
+		<table>
+		
+			<tr>
+				<td colspan="2"><input type="button" onclick="gameStart()" value="게임 시작"></td>
+			</tr>
+			
+			
+			<tr>
+				<td id="userTitle">사람</td>
+				<td id="comTitle">컴퓨터</td>
+			</tr>
+			
+			
+			<tr>
+				<td class="imgtd"><img alt="유저" src="../images/rocksissorpaper.jpg" id="user"></td>
+				<td class="imgtd"><img alt="컴퓨터" src="../images/rocksissorpaper.jpg" id="com"></td>
+			</tr>
+			
+			
+			<tr>
+				<td colspan="2" id="gameResult"></td>
+			</tr>
+		</table>
+	</div>
+</body>
+</html>

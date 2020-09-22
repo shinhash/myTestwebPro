@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html>
+<head>
+	
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	
+	<!-- 스타일 라인 -->
+	<style>
+		h2{
+			text-align: center;
+		}
+		#minetable{
+			width:500px;
+			height: 500px;
+			border-collapse : collapse;
+			margin: auto;
+		}
+		#minetable td{
+			width: 10%;
+			height: 10%;
+			text-align: center;
+			padding: 3px;
+		}
+		td input{
+			width: 100%;
+			height: 100%;
+		}
+		#ViewTime{
+			text-align: center;
+		}
+		#clearReasult{
+			text-align: center;
+			font-weight: bold;
+			font-size: 1.5em;
+			color: red;			
+		}
+	</style>
+
+
+
+
+	<!-- 스크립트 라인 -->
+	<script  type="text/javascript">
+	
+		// 가로 X 세로 크기 설정 
+		var tableLen = 9;
+		
+		// time 초기 설정
+		var TimeSec = 0;
+		
+		// 폭탄클릭 카운트 초기 설정
+		var boombClick_count = 0;
+		
+		// 안전지대 클릭 초기 설정
+		var safeClick_count = 0;
+		
+		var clearTimeText = "";
+		
+		
+		
+		// 초기 폭탄의 위치 설정 배열
+		marr = new Array();
+		
+		// 설정된 폭탄의 위치와 폭탄이 없는 위치의 2차원 배열
+		//const mineLocation = [[], [], [], [], [], [], [], [], []];
+		const mineLocation = new Array();
+		for(i=0; i<9; i++){
+			mineLocation[i] = new Array();
+		}
+	
+		
+		
+		
+		
+		
+		// 웹 시작시 바로 시작
+		window.onload = function() {
+			
+			round = 0;
+			
+			// 초기 폭탄 위치 설정
+			while(round < 10) {
+				rand = Math.floor(Math.random()*80);
+				incheck = false;
+				
+				for(i=0; i<marr.length; i++) {
+					if(marr[i] == rand) {
+						incheck = true;
+						break;
+					}
+				}
+				
+				if(incheck == false) {
+					marr.push(rand);
+					round++;
+				}
+			}
+			
+			
+			
+			// 폭탄이 위치한 좌표들을 배열을 출력
+			//document.getElementById('dIn').innerHTML += marr + "<br><br>";
+			
+			
+			
+			
+			// 폭탄의 위치 정렬화
+			for(i=0; i<marr.length-1;){
+				if(marr[i] > marr[i+1]){
+					temp = marr[i];
+					marr[i] = marr[i+1];
+					marr[i+1] = temp;
+					i = 0;
+				}else{
+					i++;
+				}
+			}
+			//document.getElementById('dIn').innerHTML += marr + "<br><br> ";
+			
+			
+			
+			
+			
+			// 폭탄의 위치 2차원 배열 설정
+			bombArr = "<br>";
+			bombCount = 0;
+			bomb = 0;
+			
+			for(i=0; i<tableLen; i++){
+				for(j=0; j<tableLen; j++){
+					
+					if(bombCount == marr[bomb]){
+						bomb++;
+						mineLocation[i][j] = "M";
+					}else{
+						mineLocation[i][j] = "O";
+					}
+					bombCount++;
+				}
+				mineLocation[i][j] = "<br>";
+			}
+			//document.getElementById('dIn').innerHTML += mineLocation;
+			
+			
+			// 시간초 설정
+			gameEnd = setInterval('Clock()', 1000);
+		}
+		
+		
+		function Clock(){
+			timeTxt = Math.floor(TimeSec / 60) + " 분  " + (TimeSec % 60) + "초 ";
+			TimeSec++;
+			document.getElementById('ViewTime').innerHTML = timeTxt;
+			clearTimeText = timeTxt;
+		}
+		
+		
+		
+		// 버튼을 클릭했을때의 메서드
+		function bluckclick(clicked_id){
+			
+			var subBtn = clicked_id.substring(3);
+			
+			btn_num = 0;
+			cols = 0;
+			rows = 0;
+			
+			boombCount = 0;
+			
+			for(i=0; i<tableLen; i++){
+				for(j=0; j<tableLen; j++){
+					if(btn_num == subBtn){
+						cols = i;
+						rows = j;
+						boombCount = countMines(cols, rows);
+						showBluckResult(boombCount, subBtn);
+						return;
+					}else{
+						btn_num++;						
+					}
+				}
+			}
+		}
+		
+		
+		
+		// 클릭한 버튼의 주변에 있는 폭탄의 갯수를 카운트한 뒤 반환하는 메서드
+		function countMines(x, y){
+			
+			count = 0;
+			
+			iLen = x+1; // x의 최대값
+			jLen = y+1; // y의 최대값
+			
+			/*
+				O O O
+				O X O
+				O O O
+				
+				X <==> (x,y)
+			*/
+			
+			for(i=x-1; i<=iLen; i++){
+				for(j=y-1; j<=jLen; j++){
+					if(i < 0 || j < 0 || (i === x && j === y) || i > mineLocation.length-1){
+						continue;
+					}
+					if(mineLocation[i][j] == "M"){
+						count++;
+					}
+				}
+			}
+			return count;
+		}
+		
+		
+		
+		// 클릭한 버튼주변의 폭탄의 갯수와 폭탄을 표시하는 메서드
+		function showBluckResult(minesCount, subBtn){
+			
+			// 폭탄의 갯수 출력
+			document.getElementById(subBtn).innerHTML = minesCount;
+			safeClick_count++;
+			
+			// 폭탄 출력
+			for(i=0; i<marr.length; i++){
+				if(subBtn == marr[i]){
+					
+					boombClick_count = 1;
+					
+					document.getElementById(subBtn).innerHTML = "펑!";
+					clearInterval(gameEnd);
+					alert("실패!!!!!");
+					return;
+				}
+			}
+			
+			
+			// 승리조건
+			if(safeClick_count == 71 && boombClick_count == 0){
+				clearInterval(gameEnd);
+				alert("*** 클리어를 축하드립니다!!!!! ***");
+				document.getElementById('clearReasult').innerHTML = clearTimeText;
+				return;
+			}
+		}
+		
+	</script>
+	
+	
+	
+	
+	
+</head>
+
+<body>
+
+	<br><br>
+	
+<!-- 	<div id="dIn"></div> -->
+	<div id="ViewTime"></div>
+	
+	<br><br>
+
+	<h2> 지뢰찾기 게임 </h2>
+
+	<div>
+		<table border="1" id="minetable">
+		
+		
+		
+		
+			<tr>
+				<td id="0">
+					<input id="btn0" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="1">
+					<input id="btn1" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="2">
+					<input id="btn2" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="3">
+					<input id="btn3" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="4">
+					<input id="btn4" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="5">
+					<input id="btn5" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="6">
+					<input id="btn6" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="7">
+					<input id="btn7" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="8">
+					<input id="btn8" type="button" onclick="bluckclick(this.id)">
+				</td>
+			</tr>
+			
+			
+			
+			
+			
+			<tr>
+				<td id="9">
+					<input id="btn9" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="10">
+					<input id="btn10" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="11">
+					<input id="btn11" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="12">
+					<input id="btn12" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="13">
+					<input id="btn13" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="14">
+					<input id="btn14" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="15">
+					<input id="btn15" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="16">
+					<input id="btn16" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="17">
+					<input id="btn17" type="button" onclick="bluckclick(this.id)">
+				</td>
+			</tr>
+			
+			
+			
+			
+			
+			<tr>
+				<td id="18">
+					<input id="btn18" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="19">
+					<input id="btn19" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="20">
+					<input id="btn20" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="21">
+					<input id="btn21" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="22">
+					<input id="btn22" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="23">
+					<input id="btn23" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="24">
+					<input id="btn24" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="25">
+					<input id="btn25" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="26">
+					<input id="btn26" type="button" onclick="bluckclick(this.id)">
+				</td>
+			</tr>
+			
+			
+			
+			
+			
+			<tr>
+				<td id="27">
+					<input id="btn27" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="28">
+					<input id="btn28" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="29">
+					<input id="btn29" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="30">
+					<input id="btn30" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="31">
+					<input id="btn31" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="32">
+					<input id="btn32" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="33">
+					<input id="btn33" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="34">
+					<input id="btn34" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="35">
+					<input id="btn35" type="button" onclick="bluckclick(this.id)">
+				</td>
+			</tr>
+			
+			
+			
+			
+			
+			<tr>
+				<td id="36">
+					<input id="btn36" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="37">
+					<input id="btn37" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="38">
+					<input id="btn38" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="39">
+					<input id="btn39" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="40">
+					<input id="btn40" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="41">
+					<input id="btn41" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="42">
+					<input id="btn42" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="43">
+					<input id="btn43" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="44">
+					<input id="btn44" type="button" onclick="bluckclick(this.id)">
+				</td>
+			</tr>
+			
+			
+			
+			
+			
+			<tr>
+				<td id="45">
+					<input id="btn45" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="46">
+					<input id="btn46" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="47">
+					<input id="btn47" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="48">
+					<input id="btn48" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="49">
+					<input id="btn49" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="50">
+					<input id="btn50" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="51">
+					<input id="btn51" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="52">
+					<input id="btn52" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="53">
+					<input id="btn53" type="button" onclick="bluckclick(this.id)">
+				</td>
+			</tr>
+			
+			
+			
+			
+			
+			<tr>
+				<td id="54">
+					<input id="btn54" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="55">
+					<input id="btn55" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="56">
+					<input id="btn56" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="57">
+					<input id="btn57" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="58">
+					<input id="btn58" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="59">
+					<input id="btn59" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="60">
+					<input id="btn60" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="61">
+					<input id="btn61" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="62">
+					<input id="btn62" type="button" onclick="bluckclick(this.id)">
+				</td>
+			</tr>
+			
+			
+			
+			
+			
+			<tr>
+				<td id="63">
+					<input id="btn63" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="64">
+					<input id="btn64" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="65">
+					<input id="btn65" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="66">
+					<input id="btn66" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="67">
+					<input id="btn67" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="68">
+					<input id="btn68" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="69">
+					<input id="btn69" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="70">
+					<input id="btn70" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="71">
+					<input id="btn71" type="button" onclick="bluckclick(this.id)">
+				</td>
+			</tr>
+			
+			
+			
+			
+			
+			<tr>
+				<td id="72">
+					<input id="btn72" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="73">
+					<input id="btn73" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="74">
+					<input id="btn74" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="75">
+					<input id="btn75" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="76">
+					<input id="btn76" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="77">
+					<input id="btn77" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="78">
+					<input id="btn78" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="79">
+					<input id="btn79" type="button" onclick="bluckclick(this.id)">
+				</td>
+				<td id="80">
+					<input id="btn80" type="button" onclick="bluckclick(this.id)">
+				</td>
+			</tr>
+			
+			
+			
+			
+			
+		</table>
+		
+		<div id="clearReasult"></div>
+		
+	</div>
+	
+</body>
+</html>

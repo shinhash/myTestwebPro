@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/public.css">
+
+<script>
+	window.onload = function(){
+		var name = prompt("이름을 입력하세요.", "한글 또는 영문");
+		
+		var vdiv = document.getElementById('out');
+		vdiv.innerHTML = "이름 : " + name;		
+	}
+	
+	function add(){
+		var x = prompt("첫번째 정수를 입력");
+		var y = prompt("두번째 정수를 입력");
+		
+		var result = parseInt(x) + parseInt(y);
+		
+		var vdiv2 = document.getElementById('sum');
+		vdiv2.innerHTML = x + " + " + y + " = " + result;
+	}
+</script>
+
+
+</head>
+<body>
+<pre>
+	실행시 이름을 prompt()를 이용하여 입력하고
+	결과를 div에 출력한다.
+	
+	window.onload = function(){
+		var name = prompt("이름을 입력하세요.", "한글 또는 영문");
+		
+		var vdiv = document.getElementById('out');
+		vdiv.innerHTML = "이름 : " + name;	
+	}
+</pre>
+
+<div id="out"></div>
+
+
+
+<pre>
+확인버튼을 클릭하면 두개의 수를 입력하여 덧셈을 하고 div에 출력
+
+	function add(){
+		var x = prompt("첫번째 정수를 입력");
+		var y = prompt("두번째 정수를 입력");
+		
+		var result = parseInt(x) + parseInt(y);
+		
+		var vdiv2 = document.getElementById('sum');
+		vdiv2.innerHTML = x + " + " + y + " = " + result;
+	}
+</pre>
+<input type="button" value="확인" onclick="add()">
+<br>
+<div id="sum"></div>
+
+
+
+
+
+</body>
+</html>

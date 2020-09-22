@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/public.css">
+
+
+<script>
+
+	function proc1(){
+		// var 또는 let을 변수명 앞에 작성하면 지역변수가 되고 
+		// 아무것도 작성하지 않으면 전역변수가 된다.
+		// 지역변수로 설정할 경우 해당 변수를 인수로 보내야 한다.
+		f = ["사과", "바나나", "참외", "수박", "복숭아", "포도"];
+		print("#result1");
+	}
+	
+	
+	
+	
+	function proc2(){
+		f = new Array("사과", "바나나", 77, "수박", "복숭아", "포도");
+		print("#result2");
+	}
+	
+	
+	
+	
+	function proc3(){
+		f = new Array();
+		f[0] =  "파인애플";
+		f[1] =  123.456;
+		f[2] =  100;
+		print("#result3");
+	}
+	
+	
+	function print(out){
+		res = "";
+		/*
+		for(i=0; i<f.length; i++){
+			res += f[i] + "<br>";
+		}
+		*/
+		
+		// script에서는 'in' 이 java에서의 ':' 이다.
+		for(x in f){
+			res += f[x] + "<br>";
+		}
+		document.querySelector(out).innerHTML = res;
+	}
+	
+	
+	
+</script>
+
+
+
+
+</head>
+<body>
+
+	<div class="box">
+		<h3>1. 배열-리터럴 생성</h3>
+		f = ["사과", "바나나", "참외", "수박", "복숭아", "포도"]<br><br>
+		<input type="button" value="확인" onclick="proc1()">
+		<br><br>
+		<div id="result1"></div>
+	</div>
+	
+	
+	
+	
+	<div class="box">
+		<h3>2. 배열-리터럴 생성</h3>
+		f = new Array("사과", "바나나", "참외", "수박", "복숭아", "포도")<br><br>
+		<input type="button" value="확인" onclick="proc2()">
+		<br><br>
+		<div id="result2"></div>
+	</div>
+	
+	
+	<div class="box">
+		<h3>3. 배열-리터럴 생성 default</h3>
+		f = new Array()<br><br>
+		<input type="button" value="확인" onclick="proc3()">
+		<br><br>
+		<div id="result3"></div>
+	</div>
+	
+	
+
+</body>
+</html>

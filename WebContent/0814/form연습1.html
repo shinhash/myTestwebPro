@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" href="../css/public.css">
+	
+	<style>
+		table{
+			border-collapse: collapse;
+		}
+		#top_td{
+			text-align: center;
+		}
+		#text{
+			width: 20px;
+		}
+	</style>
+	
+	
+	
+	<script>
+		window.onload = function(){
+			form = document.selForm;
+			form.textLine.focus();
+		}
+		
+		function multy(){
+			text = form.textLine.value;
+			
+			//chk = checkNum(text);
+			
+			
+			res = text + " 단\n";
+			for(i=1; i<10; i++){
+				num = text*i;
+				res += text + " * " + i + " = " + num;
+				res += "\n";
+			}
+			form.area.innerHTML = res;
+		}
+		
+		
+		
+		
+		
+	</script>
+	
+	
+	
+</head>
+<body>
+
+	<div class="box" align="center">
+		<form name="selForm">
+			<table>
+			
+			
+			
+				<tr>
+					<td id="top_td">
+						<input type="text" id="text" name="textLine">단 
+						<input type="button" value="출력" onclick="multy()">
+					</td>
+				</tr>
+				
+				
+				
+				<tr>
+					<td>
+						<textarea rows="25" cols="30" name="area"></textarea>
+					</td>
+				</tr>
+				
+				
+			</table>
+		
+		</form>
+	</div>
+	
+	
+</body>
+</html>

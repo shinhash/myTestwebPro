@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" href="../css/public.css">
+	
+	
+	<style>
+		table{
+			width: 700px;
+			height: 500px;
+			border-collapse: collapse;
+		}
+		td{
+			width: 200px;
+			height: auto;
+		}
+		select{
+			height: 100%;
+			width: 100%;
+		}
+		#top_td{
+			text-align: center;
+			font-size: 1.2em;
+			font-weight: bold;
+		}
+		#center_td{
+			text-align: center;
+			width: 50px;
+		}
+		#bottom_td{
+			text-align: center;
+		}
+	</style>
+	
+	
+	
+	
+	<script>
+	
+	
+	
+		window.onload = function(){
+			form = document.selForm;
+			form.data.focus();
+		}
+	
+	
+	
+		function add(){
+			//data = document.getElementById('data').value;
+			data = form.data.value;
+			
+			if(data.trim().length != 0){
+				// option태그 만들기 <option value="sdf">sdf</option>
+				// value와 text속성 설정
+				option = document.createElement('option');
+				option.value = data;
+				option.text = data;
+				
+				
+				//left에 추가
+				left = form.left;
+				left.append(option);
+				
+				form.data.value = "";
+				form.data.focus();
+			}
+		}
+		
+		
+		
+		
+		function toRight(){
+			//왼쪽에서 하나를 선택후 오른쪽으로 이동
+			index = form.left.selectedIndex;
+			
+			
+			//선택한 항목이 없으면 경고 메시지창 띄우기
+			if(index < 0){
+				alert("항목을 선택하세요.");
+				return;
+			}
+			
+			
+			//좌측에서 선택한 x번째의 value값
+			data = form.left.options[index].value;
+			
+			//option태그를 생성
+			//value, text속성 설정
+			option = document.createElement('option');
+			option.value = data;
+			option.text = data;
+			
+			
+			//우측에 option태그 추가
+			form.right.appendChild(option);
+			
+			
+			//좌측의 선택된 option태그 삭제 // 좌측에서 선택한 option선택 삭제
+			form.left.removeChild(form.left.options[index]);
+		}
+		
+		
+		
+		
+		
+		
+		function toLeft(){
+			//왼쪽에서 하나를 선택후 오른쪽으로 이동
+			index = form.right.selectedIndex;
+			
+			
+			//선택한 항목이 없으면 경고 메시지창 띄우기
+			if(index < 0){
+				alert("항목을 선택하세요.");
+				return;
+			}
+			
+			//좌측에서 선택한 x번째의 value값
+			data = form.right.options[index].value;
+			
+			//option태그를 생성
+			//value, text속성 설정
+			option = document.createElement('option');
+			option.value = data;
+			option.text = data;
+			
+			
+			//우측에 option태그 추가
+			form.left.appendChild(option);
+			
+			
+			//좌측의 선택된 option태그 삭제 // 좌측에서 선택한 option선택 삭제
+			form.right.removeChild(form.right.options[index]);
+		}
+		
+		
+		
+		
+		
+		
+		
+		function rightAll(){
+			
+			// 좌측 option의 갯수
+			leftLen = form.left.length;
+			
+			// 갯수만큼 반복
+			for(i=0; i<leftLen; i++){
+				// 좌측에서 차례대로 i번째값을 가져온다.
+				data = form.left.options[i].value;
+				
+				// option생성
+				// value와 text설정
+				option = document.createElement('option');
+				option.value = data;
+				option.text = data;
+				
+				
+				//우측 select에 추가
+				form.right.appendChild(option);
+			}
+			
+			// 좌측의 갯수만큼 지우기
+			for(i=0; i<leftLen; i++){
+				form.left.removeChild(form.left.options[0]);
+			}
+		}
+		
+		
+		
+		
+		
+		function leftAll(){
+			
+			// 좌측 option의 갯수
+			rightLen = form.right.length;
+			
+			// 갯수만큼 반복
+			for(i=0; i<rightLen; i++){
+				// 좌측에서 차례대로 i번째값을 가져온다.
+				data = form.right.options[i].value;
+				
+				// option생성
+				// value와 text설정
+				option = document.createElement('option');
+				option.value = data;
+				option.text = data;
+				
+				
+				//우측 select에 추가
+				form.left.appendChild(option);
+			}
+			
+			// 좌측의 갯수만큼 지우기
+			for(i=0; i<rightLen; i++){
+				form.right.removeChild(form.right.options[0]);
+			}
+		}
+		
+		
+	</script>
+	
+	
+	
+</head>
+<body>
+
+	<div class="box" align="center">
+	
+	
+		<form name="selForm">
+			<table border="1">
+			
+				<tr>
+					<td colspan="3" id="top_td">select객체 예제</td>
+				</tr>
+				
+				
+				
+				<tr>
+					<td>
+						<select name="left" multiple="multiple" size="10">
+							
+						</select>
+					</td>
+					
+					
+					
+					<td id="center_td">
+						<input type="button" onclick="toRight()" value=">">
+						<br><br>
+						<input type="button" onclick="rightAll()" value=">>">
+						<br><br>
+						<input type="button" onclick="toLeft()" value="<">
+						<br><br>
+						<input type="button" onclick="leftAll()" value="<<">
+						<br><br>
+					</td>
+
+					
+					
+					<td>
+						<select name="right" multiple="multiple" size="10">
+						
+						</select>
+					</td>
+				</tr>
+				
+				
+				
+				<tr>
+					<td colspan="3" id="bottom_td">
+						<input type="text" name="text" id="data" name="data">
+						<input type="button" onclick="add()" value="추가하기">
+					</td>				
+				</tr>
+				
+				
+			</table>
+		</form>
+		
+		
+	</div>
+	
+	
+</body>
+</html>

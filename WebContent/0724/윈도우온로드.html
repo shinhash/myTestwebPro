@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/public.css">
+
+
+<style>
+
+	div{
+		width: 50%;
+		height: 100px;
+		background: pink;
+	}
+</style>
+
+
+<script>
+	window.onload = function(){
+		var now = new Date();
+		
+		var vdiv = document.getElementsByTagName('div')[0];
+		vdiv.style.fontColor='blue';
+		vdiv.style.fontSize='20px';
+		vdiv.innerHTML = now;
+	}
+</script>
+
+
+</head>
+<body>
+<pre>
+실행하자마자 날짜 생성하여 div에 출력한다.
+body보다 상단에서 작성한 script를 수행시
+body태그 내의 요소에 접근할 수 없다
+
+그래서 window.onload = function(){}메서드를 활용한다.
+body내의 요소들로 실행하여 document객체를 만들고
+window브라우저의 실행완료 후에 script를 나중에 실헹하도록 한다.
+</pre>
+
+<br>
+<div></div>
+
+
+
+
+
+
+</body>
+
+</html>

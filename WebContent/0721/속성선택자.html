@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<style type="text/css">
+	
+		pre{
+			padding: 10px;
+		}
+		
+		
+		p.pp{
+			font-size: 1.5em;
+		}
+		p[class=pp]{
+			color: blue;
+		}
+		span[class=pp]{
+			color: magenta;
+		}
+		span.pp{
+			font-size: 2.0em;
+			font-weight: bold;
+		}
+		strong{
+			font-size: 1.4em;
+		}
+		
+		p[id=p4]{
+			background-color: #f1d1e1;
+		}
+		
+		p[title=무궁화1]{
+			border: 3px solid green;
+		}
+		p[title]{
+			font-style: italic;
+			color: red;
+		}
+		p[id]{
+			text-align: center;
+			
+			/* x좌표, y좌표, 그림자의 선명도(숫자가 클수록 번짐), 그림자의 색상*/
+			text-shadow: 10px 5px 3px gray;
+		}
+	
+	</style>
+	<link rel="stylesheet" href="../css/public.css">
+</head>
+<body>
+
+
+<pre>
+작성팁
+속성 관련 선택
+속성( attribute )선택자: 
+특정한 속성을 가지는 요소를 선택한다.
+
+<strong>p.pp</strong>
+<strong>p[class=pp]</strong> {color: blue;}
+<strong>span.pp</strong> {font-size: 2.0em; font-weight: bold;}
+<strong>span[class=pp]</strong> {color: blue;}
+
+<strong>#p4</strong>
+
+<strong>p[id=p4]</strong> {background-color: #f1d1e1;}
+<strong>p[title=무궁화1]</strong> {border: 3px solid green;}
+<strong>p[title]</strong> {font-style: italic; color: red;}
+
+/* x좌표, y좌표, 그림자의 선명도(숫자가 클수록 번짐), 그림자의 색상*/
+<strong>p[id]</strong> {text-align: center; text-shadow: 10px(x좌표) 5px(y좌표) 3px(그림자의 선명도) gray(그림자의 색상);}
+
+</pre>
+
+
+
+	<div>
+		<p title="무궁화1" id="p1">무궁화 꽃이 피었습니다.</p>
+		<p class="pp">무궁화 꽃이 피었습니다.</p>
+		<p title="무궁화2" class="pp">무궁화 꽃이 피었습니다.</p>
+		<p id="p4">무궁화 꽃이 피었습니다.</p>
+		<p class="pp2">무궁화 꽃이 피었습니다.</p>
+		
+		<span class="pp">사과</span>
+		<span>복숭아</span>
+		<span>수박</span>
+	</div>
+	
+	
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/public.css">
+
+<script>
+	var circle={
+			rad : 4,
+			
+			// 면적
+			getArea : function(){
+				
+				// 3.14*r*r
+				var area = Math.floor(Math.pow(this.rad, 2) * Math.PI);
+				return area;
+			},
+			
+			// 둘레
+			getCircum : function(){
+				
+				// r * 2 + 3.14
+				cir = Math.floor(2 * Math.PI + this.rad);
+				return cir;
+			}
+	};
+	
+	var rect={
+			name : "Rect",
+			width : 10,
+			height : 20,
+			
+			getRound : function(){
+				// 둘레
+				var round = (this.width*2) + (this.height);
+				return round;
+			},
+			getArea : function(){
+				
+				var area = this.width * this.height;
+				return area;
+			}
+	};
+	
+	
+	
+	function proc1(){
+		circle.name = "동그라미";
+		
+		
+		res1 = "이름 : " + circle.name + "<br>";
+		res1 += "반지름 : " + circle.rad + "<br>";
+		res1 += "면적 : " + circle.getArea() + "<br>";
+		res1 += "둘레 : " + circle.getCircum() + "<br>";
+		
+		document.getElementById('result1').innerHTML = res1;
+	}
+	
+	
+	
+	
+	function proc2(){
+
+		res2 = "이름 : " + rect.name + "<br>";
+		res2 += "가로길이 : " + rect.width + "<br>";
+		res2 += "세로길이 : " + rect.height + "<br>";
+		res2 += "둘레 : " + rect.getRound() + "<br>";
+		res2 += "면적 : " + rect.getArea() + "<br>";
+		
+		document.getElementById('result2').innerHTML = res2;
+	}
+	
+	
+	
+	
+	
+	
+</script>
+
+
+</head>
+<body>
+
+	<div class="box">
+		<h3>1. circle객체 생성</h3>
+		- 속성 : 반지름(rad)<br>
+		- 메서드 : 면적 구하기(getArea()), 둘레 구하기(getCircum())<br>
+		<br>
+		<input type="button" value="확인" onclick="proc1()">
+		<br><br>
+		<h2>실행결과</h2>
+		<div id="result1"></div>
+	</div>
+	
+	
+	
+	
+	
+	
+	<div class="box">
+		<h3>1. Rect객체 생성</h3>
+		- 속성 : 가로(width), 세로(height), 이름(name)<br>
+		- 메서드 : 면적 구하기(getArea()), 둘레 구하기(getCircum())<br>
+		<br>
+		<input type="button" value="확인" onclick="proc2()">
+		<br><br>
+		<h2>실행결과</h2>
+		<div id="result2"></div>
+	</div>
+	
+	
+	
+	
+	
+</body>
+</html>

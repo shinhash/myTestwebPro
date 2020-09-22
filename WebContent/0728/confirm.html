@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/public.css">
+
+<script>
+	function proc1(){
+		// 수를 입력해서 해당 수의 구구단 출력
+		
+		res = "";
+		while(true){
+			x = parseInt(prompt("수를 입력하시오."));
+			res += "<br>***"  + x + "단***<br>" 
+			for(i=1; i<=9; i++){
+				res += x + " * " + i + " = " + (x*i) + "<br>";
+			}
+			document.querySelector('#result1').innerHTML = res;
+			
+			var retry = confirm("retry ??");
+			if(retry == false){
+				break;
+			}
+			
+		}
+		
+		
+		
+	}
+</script>
+
+
+</head>
+<body>
+
+<div class="box">
+		<h3>1. confirm함수</h3>
+		- 사용자의 질문에 답변하는 함수<br>
+		- true / false를 return<br>
+		<br>
+		<input type="button" value="확인" onclick="proc1()">
+		<br><br>
+		<h2>실행결과</h2>
+		<div id="result1"></div>
+	</div>
+</body>
+</html>
